@@ -1,0 +1,61 @@
+name: Module 7.2 — deterministic incident investigation
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  failure-investigation:
+    if: ${{ !startsWith(github.event.head_commit.message, 'evidence:') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Flask and pytest
+        run: python -m pip install -r requirements.txt
+      - name: Rebuild original Module 6 seed from untouched source CSV
+        run: python -m scripts.seed_history
+      - name: Run baseline and improved logging tests
+        run: python -m pytest -q
+      - name: Install Chromium for real dashboard screenshots
+        uses: browser-actions/setup-chrome@v1
+      - name: Reproduce source interruption and verify actual recovery
+        run: python scripts/failure_investigation.py
+      - name: Reject missing or fabricated evidence
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          evidence=Path('evidence')
+          proof=json.loads((evidence/'verification.json').read_text())
+          assert proof['verified'] and proof['archive_before']==proof['archive_after']==8780
+          assert proof['replay_after']>proof['replay_before']
+          for name in ('normal_dashboard','stale_condition','failed_condition','recovered_dashboard'):
+              p=evidence/(name+'.png')
+              assert p.is_file() and p.stat().st_size>3000, name
+          for name in ('application_logs.jsonl','application_events.csv','timeline.csv','FAILURE_REPORT.md'):
+              assert (evidence/name).is_file(), name
+          PY
+      - name: Commit actual, machine-produced incident evidence
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add evidence/
+          if ! git diff --cached --quiet; then
+            git commit -m 'evidence: real replay failure, stale transition, recovery logs and Flask screenshots'
+            git push
+          fi
+      - name: Upload evidence for review even if a step fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: module7-2-incident-evidence
+          path: evidence/
+          if-no-files-found: warn
