@@ -9,9 +9,15 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class StructuredFormatter(logging.Formatter):
     def format(self, record):
-        return json.dumps({'timestamp_utc':datetime.now(timezone.utc).isoformat(timespec='milliseconds'),
-                           'level': record.levelname,'event':getattr(record,'event','APPLICATION'),
-                           'message':record.getMessage(), 'process_id':record.process})
+        payload = {'timestamp_utc': datetime.now(timezone.utc).isoformat(timespec='milliseconds'),
+                   'level': record.levelname, 'event': getattr(record, 'event', 'APPLICATION'),
+                   'message': record.getMessage(), 'process_id': record.process}
+        # New Assignment 7.2 diagnostics: machine-readable causal context.
+        for field in ('component', 'cursor', 'pause_file', 'elapsed_seconds', 'source'):
+            value = getattr(record, field, None)
+            if value is not None:
+                payload[field] = value
+        return json.dumps(payload)
 
 def get_logger(path=None, name='monitor7'):
     path=Path(path or ROOT/'logs'/'monitor.jsonl')
@@ -26,5 +32,5 @@ def get_logger(path=None, name='monitor7'):
         log.addHandler(h)
     return log
 
-def log_event(logger, event, message, level='info'):
-    getattr(logger,level)(message,extra={'event':event})
+def log_event(logger, event, message, level='info', **context):
+    getattr(logger,level)(message,extra={'event':event, **context})
