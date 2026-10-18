@@ -42,8 +42,8 @@ jobs:
           for name in ('application_logs.jsonl','application_events.csv','timeline.csv','FAILURE_REPORT.md'):
               assert (evidence/name).is_file(), name
           PY
-      - name: Commit actual, machine-produced incident evidence
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      - name: Commit actual incident evidence only on manual rerun
+        if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
