@@ -4,15 +4,15 @@
 
 ## 1. System Before Failure
 
-**Health:** HEALTHY. **Latest accepted temperature:** 22.14 °C at replay arrival `2026-10-18T17:47:16.052+00:00`. **Dashboard:** HTTP 200, real browser screenshot `normal_dashboard.png`. **Database:** source history 8780 rows across five sensors and SQLite `PRAGMA quick_check=ok`. **Alert active:** False. Replay rows: 3.
+**Health:** HEALTHY. **Latest accepted temperature:** 22.14 °C at replay arrival `2026-10-18T17:49:08.230+00:00`. **Dashboard:** HTTP 200, real browser screenshot `normal_dashboard.png`. **Database:** source history 8780 rows across five sensors and SQLite `PRAGMA quick_check=ok`. **Alert active:** False. Replay rows: 3.
 
 ## 2. Failure Introduced
 
-At **2026-10-18T17:47:24.807+00:00 UTC**, a controlled test operator created `state/pause.flag`, intentionally stopping replay input but not Flask or SQLite. Expected stale then failed health, observed exactly that. The operator action is recorded as `FAILURE_INJECTED` and supported by worker-generated `SOURCE_PAUSED`.
+At **2026-10-18T17:49:15.853+00:00 UTC**, a controlled test operator created `state/pause.flag`, intentionally stopping replay input but not Flask or SQLite. Expected stale then failed health, observed exactly that. The operator action is recorded as `FAILURE_INJECTED` and supported by worker-generated `SOURCE_PAUSED`.
 
 ## 3. First Observable Symptom
 
-**First source warning:** `SOURCE_PAUSED`, **2026-10-18T17:47:25.011+00:00 UTC**; it includes the component, paused cursor and path. This is the first observed source failure. `STALE_INPUT` and `INPUT_FAILED` were later downstream **health symptoms**, not the root cause. The deliberate pause flag is the known root cause of this test.
+**First source warning:** `SOURCE_PAUSED`, **2026-10-18T17:49:16.132+00:00 UTC**; it includes the component, paused cursor and path. This is the first observed source failure. `STALE_INPUT` and `INPUT_FAILED` were later downstream **health symptoms**, not the root cause. The deliberate pause flag is the known root cause of this test.
 
 ## 4. Log Evidence
 
@@ -22,13 +22,13 @@ At **2026-10-18T17:47:24.807+00:00 UTC**, a controlled test operator created `st
 
 | Time (UTC) | Component | Event | Interpretation |
 |---|---|---|---|
-| 2026-10-18T17:47:24.807+00:00 | operator | FAILURE_INJECTED | Operator creates source pause flag: controlled root cause |
-| 2026-10-18T17:47:25.011+00:00 | replay_worker | SOURCE_PAUSED | First worker warning; cursor stopped advancing |
-| 2026-10-18T17:47:27.814+00:00 | watchdog | STALE_INPUT | Downstream stale-data symptom |
-| 2026-10-18T17:47:33.430+00:00 | watchdog | INPUT_FAILED | Downstream FAILED state after persistent outage |
-| 2026-10-18T17:47:34.032+00:00 | operator | RECOVERY_ACTION | Operator removes pause flag |
-| 2026-10-18T17:47:34.224+00:00 | replay_worker | SOURCE_RESUMED | Worker resumes; duration and cursor recorded |
-| 2026-10-18T17:47:34.494+00:00 | watchdog | HEALTH_RECOVERED | New accepted arrival restores HEALTHY |
+| 2026-10-18T17:49:15.853+00:00 | operator | FAILURE_INJECTED | Operator creates source pause flag: controlled root cause |
+| 2026-10-18T17:49:16.132+00:00 | replay_worker | SOURCE_PAUSED | First worker warning; cursor stopped advancing |
+| 2026-10-18T17:49:18.884+00:00 | watchdog | STALE_INPUT | Downstream stale-data symptom |
+| 2026-10-18T17:49:24.501+00:00 | watchdog | INPUT_FAILED | Downstream FAILED state after persistent outage |
+| 2026-10-18T17:49:25.372+00:00 | operator | RECOVERY_ACTION | Operator removes pause flag |
+| 2026-10-18T17:49:25.545+00:00 | replay_worker | SOURCE_RESUMED | Worker resumes; duration and cursor recorded |
+| 2026-10-18T17:49:25.557+00:00 | watchdog | HEALTH_RECOVERED | New accepted arrival restores HEALTHY |
 
 ## 6. Possible Cause 1 — Replay Source Paused
 
@@ -40,11 +40,11 @@ At **2026-10-18T17:47:24.807+00:00 UTC**, a controlled test operator created `st
 
 ## 8. Recovery Procedure
 
-At **2026-10-18T17:47:34.032+00:00 UTC**, the operator removed `state/pause.flag` without deleting any SQLite rows, resetting the cursor, or fabricating readings. The replay worker resumed and logged duration and cursor.
+At **2026-10-18T17:49:25.372+00:00 UTC**, the operator removed `state/pause.flag` without deleting any SQLite rows, resetting the cursor, or fabricating readings. The replay worker resumed and logged duration and cursor.
 
 ## 9. Verification of Recovery
 
-`SOURCE_RESUMED` at **2026-10-18T17:47:34.224+00:00 UTC** and `HEALTH_RECOVERED` at **2026-10-18T17:47:34.494+00:00 UTC**. Dashboard HTTP 200; `recovered_dashboard.png` shows **HEALTHY** and **22.24 °C**. Source-history rows before/after: **8780 / 8780**. Replay rows before/after: **3 / 31**. SQLite `quick_check` after: **ok**. Alert remains **False**.
+`SOURCE_RESUMED` at **2026-10-18T17:49:25.545+00:00 UTC** and `HEALTH_RECOVERED` at **2026-10-18T17:49:25.557+00:00 UTC**. Dashboard HTTP 200; `recovered_dashboard.png` shows **HEALTHY** and **22.24 °C**. Source-history rows before/after: **8780 / 8780**. Replay rows before/after: **3 / 31**. SQLite `quick_check` after: **ok**. Alert remains **False**.
 
 ## 10. What the Logs Told Me
 
