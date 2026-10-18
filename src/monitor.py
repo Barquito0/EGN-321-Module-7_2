@@ -81,13 +81,31 @@ def run_worker(stop_event:threading.Event, *, db_path=None, csv_path=CSV_PATH,
     sequence=demo_sequence(rows) if demo else rows
     # Cursor only commits after a row has been recorded; resume after restart.
     cursor=int(meta_get(conn,'cursor',0))
-    log_event(log,'WORKER_STARTED',f'cursor={cursor}, replay_seconds={interval}, demo={demo}')
+    log_event(log,'WORKER_STARTED',f'cursor={cursor}, replay_seconds={interval}, demo={demo}',
+              component='replay_worker', cursor=cursor, source=str(csv_path))
     insert_event(conn,'WORKER_STARTED',f'cursor={cursor} demo={demo}')
+    pause_started = None
     try:
         while not stop_event.is_set():
             if PAUSE_FILE.exists():
+                if pause_started is None:
+                    pause_started = time.monotonic()
+                    detail = (f'component=replay_worker action=PAUSE_FILE_DETECTED '
+                              f'cursor={cursor} pause_file={PAUSE_FILE} source={csv_path}')
+                    insert_event(conn, 'SOURCE_PAUSED', detail)
+                    log_event(log,'SOURCE_PAUSED',detail,'warning',
+                              component='replay_worker', cursor=cursor,
+                              pause_file=str(PAUSE_FILE),source=str(csv_path))
                 stop_event.wait(min(interval,0.2))
                 continue
+            if pause_started is not None:
+                duration = round(time.monotonic()-pause_started, 3)
+                detail = (f'component=replay_worker action=PAUSE_FILE_REMOVED '
+                          f'cursor={cursor} elapsed_seconds={duration} source={csv_path}')
+                insert_event(conn, 'SOURCE_RESUMED', detail)
+                log_event(log, 'SOURCE_RESUMED', detail, component='replay_worker',
+                          cursor=cursor, elapsed_seconds=duration, source=str(csv_path))
+                pause_started = None
             index=cursor % len(sequence)
             row=sequence[index]
             process_one(conn,row,logger=log)
