@@ -5,9 +5,15 @@
 - [x] Improved structured source-pause logging (`src/eventlog.py`, `src/monitor.py`).
 - [x] Regressions for logger fields, paused cursor, recovery, SQLite integrity (`tests/test_failure_diagnostics.py`).
 - [x] README, AI log, repeatable GitHub workflow.
-- [ ] CI-generated `evidence/FAILURE_REPORT.md` with all 13 required headings; the workflow must pass to check.
-- [ ] CI-generated `evidence/timeline.csv` and original machine logs; workflow must pass to check.
+- [x] CI-generated `evidence/FAILURE_REPORT.md` with all 13 required headings; the workflow must pass to check.
+- [x] CI-generated `evidence/timeline.csv` and original machine logs; workflow must pass to check.
 - [ ] Four genuine dashboard screenshots of normal, stale, failed and recovered states; workflow must pass to check.
 - [ ] `evidence/verification.json` asserting DB persistence and healthy recovery; workflow must pass to check.
 
 The GitHub Actions job checks the unchecked items before making its evidence commit. A failure produces an Actions error instead of a false claim of completion.
+## Verified GitHub Actions incident run
+
+- [x] [Run 39151149764](https://github.com/Barquito0/EGN-321-Module-7_2/actions/runs/39151149764) completed successfully.
+- [x] HEALTHY → DEGRADED → FAILED → HEALTHY; recorded source pause and resume.
+- [x] 8,780 original archive rows before and after; SQLite `PRAGMA quick_check = ok`.
+- [x] Four real dashboard PNGs and 13-section failure report committed to `evidence/`.
