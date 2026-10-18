@@ -1,0 +1,49 @@
+timestamp_utc,event,detail
+2026-10-18T17:47:15.481+00:00,STARTUP,first application startup
+2026-10-18T17:47:15.487+00:00,WORKER_STARTED,cursor=0 demo=False
+2026-10-18T17:47:15.488+00:00,READING_ACCEPTED,sample=1802 source=MODULE6_SOURCE_REPLAY status=OK raw=21.88 reason=passed source and temperature-range validation
+2026-10-18T17:47:15.770+00:00,READING_ACCEPTED,sample=1803 source=MODULE6_SOURCE_REPLAY status=OK raw=21.99 reason=passed source and temperature-range validation
+2026-10-18T17:47:15.833+00:00,HEALTH_CHANGED,STARTING -> HEALTHY; Accepted replay value is fresh; no active alert
+2026-10-18T17:47:16.052+00:00,READING_ACCEPTED,sample=1804 source=MODULE6_SOURCE_REPLAY status=OK raw=22.14 reason=passed source and temperature-range validation
+2026-10-18T17:47:16.334+00:00,READING_ACCEPTED,sample=1805 source=MODULE6_SOURCE_REPLAY status=OK raw=22.09 reason=passed source and temperature-range validation
+2026-10-18T17:47:16.616+00:00,READING_ACCEPTED,sample=1806 source=MODULE6_SOURCE_REPLAY status=OK raw=22.34 reason=passed source and temperature-range validation
+2026-10-18T17:47:16.898+00:00,READING_ACCEPTED,sample=1807 source=MODULE6_SOURCE_REPLAY status=OK raw=22.05 reason=passed source and temperature-range validation
+2026-10-18T17:47:17.217+00:00,READING_ACCEPTED,sample=1808 source=MODULE6_SOURCE_REPLAY status=OK raw=21.88 reason=passed source and temperature-range validation
+2026-10-18T17:47:17.517+00:00,READING_ACCEPTED,sample=1809 source=MODULE6_SOURCE_REPLAY status=OK raw=21.82 reason=passed source and temperature-range validation
+2026-10-18T17:47:17.799+00:00,READING_ACCEPTED,sample=1810 source=MODULE6_SOURCE_REPLAY status=OK raw=22.1 reason=passed source and temperature-range validation
+2026-10-18T17:47:18.081+00:00,READING_ACCEPTED,sample=1811 source=MODULE6_SOURCE_REPLAY status=OK raw=22.08 reason=passed source and temperature-range validation
+2026-10-18T17:47:18.363+00:00,READING_ACCEPTED,sample=1812 source=MODULE6_SOURCE_REPLAY status=OK raw=22.25 reason=passed source and temperature-range validation
+2026-10-18T17:47:18.645+00:00,READING_ACCEPTED,sample=1813 source=MODULE6_SOURCE_REPLAY status=OK raw=22.21 reason=passed source and temperature-range validation
+2026-10-18T17:47:18.927+00:00,READING_ACCEPTED,sample=1814 source=MODULE6_SOURCE_REPLAY status=OK raw=22.05 reason=passed source and temperature-range validation
+2026-10-18T17:47:19.209+00:00,READING_ACCEPTED,sample=1815 source=MODULE6_SOURCE_REPLAY status=OK raw=22.2 reason=passed source and temperature-range validation
+2026-10-18T17:47:19.491+00:00,READING_ACCEPTED,sample=1816 source=MODULE6_SOURCE_REPLAY status=OK raw=22.18 reason=passed source and temperature-range validation
+2026-10-18T17:47:19.773+00:00,READING_ACCEPTED,sample=1817 source=MODULE6_SOURCE_REPLAY status=OK raw=22.26 reason=passed source and temperature-range validation
+2026-10-18T17:47:20.055+00:00,READING_ACCEPTED,sample=1818 source=MODULE6_SOURCE_REPLAY status=OK raw=21.93 reason=passed source and temperature-range validation
+2026-10-18T17:47:20.337+00:00,READING_ACCEPTED,sample=1819 source=MODULE6_SOURCE_REPLAY status=OK raw=22.02 reason=passed source and temperature-range validation
+2026-10-18T17:47:20.619+00:00,READING_ACCEPTED,sample=1820 source=MODULE6_SOURCE_REPLAY status=OK raw=22.18 reason=passed source and temperature-range validation
+2026-10-18T17:47:21.086+00:00,READING_ACCEPTED,sample=1821 source=MODULE6_SOURCE_REPLAY status=OK raw=22.05 reason=passed source and temperature-range validation
+2026-10-18T17:47:21.601+00:00,READING_ACCEPTED,sample=1822 source=MODULE6_SOURCE_REPLAY status=OK raw=21.73 reason=passed source and temperature-range validation
+2026-10-18T17:47:22.093+00:00,READING_ACCEPTED,sample=1823 source=MODULE6_SOURCE_REPLAY status=OK raw=22.01 reason=passed source and temperature-range validation
+2026-10-18T17:47:22.571+00:00,READING_ACCEPTED,sample=1824 source=MODULE6_SOURCE_REPLAY status=OK raw=22.01 reason=passed source and temperature-range validation
+2026-10-18T17:47:23.036+00:00,READING_ACCEPTED,sample=1825 source=MODULE6_SOURCE_REPLAY status=OK raw=22.13 reason=passed source and temperature-range validation
+2026-10-18T17:47:23.318+00:00,READING_ACCEPTED,sample=1826 source=MODULE6_SOURCE_REPLAY status=OK raw=22.15 reason=passed source and temperature-range validation
+2026-10-18T17:47:23.600+00:00,READING_ACCEPTED,sample=1827 source=MODULE6_SOURCE_REPLAY status=OK raw=22.22 reason=passed source and temperature-range validation
+2026-10-18T17:47:23.882+00:00,READING_ACCEPTED,sample=1828 source=MODULE6_SOURCE_REPLAY status=OK raw=22.13 reason=passed source and temperature-range validation
+2026-10-18T17:47:24.165+00:00,READING_ACCEPTED,sample=1829 source=MODULE6_SOURCE_REPLAY status=OK raw=22.16 reason=passed source and temperature-range validation
+2026-10-18T17:47:24.448+00:00,READING_ACCEPTED,sample=1830 source=MODULE6_SOURCE_REPLAY status=OK raw=22.3 reason=passed source and temperature-range validation
+2026-10-18T17:47:24.490+00:00,APPLICATION_ERROR,<NotFound '404: Not Found'>
+2026-10-18T17:47:24.730+00:00,READING_ACCEPTED,sample=1831 source=MODULE6_SOURCE_REPLAY status=OK raw=22.41 reason=passed source and temperature-range validation
+2026-10-18T17:47:24.807+00:00,FAILURE_INJECTED,component=operator action=create_pause_flag path=/home/runner/work/EGN-321-Module-7_2/EGN-321-Module-7_2/state/pause.flag
+2026-10-18T17:47:25.011+00:00,SOURCE_PAUSED,component=replay_worker action=PAUSE_FILE_DETECTED cursor=30 pause_file=/home/runner/work/EGN-321-Module-7_2/EGN-321-Module-7_2/state/pause.flag source=/home/runner/work/EGN-321-Module-7_2/EGN-321-Module-7_2/data/module6_sample_sensor_history.csv
+2026-10-18T17:47:27.814+00:00,STALE_INPUT,HEALTHY -> DEGRADED; Replay input stale; last reading is NOT current
+2026-10-18T17:47:28.154+00:00,APPLICATION_ERROR,<NotFound '404: Not Found'>
+2026-10-18T17:47:33.430+00:00,INPUT_FAILED,DEGRADED -> FAILED; No replay input received within failure limit
+2026-10-18T17:47:33.794+00:00,APPLICATION_ERROR,<NotFound '404: Not Found'>
+2026-10-18T17:47:34.032+00:00,RECOVERY_ACTION,component=operator action=remove_pause_flag path=/home/runner/work/EGN-321-Module-7_2/EGN-321-Module-7_2/state/pause.flag
+2026-10-18T17:47:34.224+00:00,SOURCE_RESUMED,component=replay_worker action=PAUSE_FILE_REMOVED cursor=30 elapsed_seconds=9.212 source=/home/runner/work/EGN-321-Module-7_2/EGN-321-Module-7_2/data/module6_sample_sensor_history.csv
+2026-10-18T17:47:34.224+00:00,READING_ACCEPTED,sample=1832 source=MODULE6_SOURCE_REPLAY status=OK raw=22.24 reason=passed source and temperature-range validation
+2026-10-18T17:47:34.494+00:00,HEALTH_RECOVERED,FAILED -> HEALTHY; Accepted replay value is fresh; no active alert
+2026-10-18T17:47:34.506+00:00,READING_ACCEPTED,sample=1833 source=MODULE6_SOURCE_REPLAY status=OK raw=22.45 reason=passed source and temperature-range validation
+2026-10-18T17:47:34.789+00:00,READING_ACCEPTED,sample=1834 source=MODULE6_SOURCE_REPLAY status=OK raw=22.26 reason=passed source and temperature-range validation
+2026-10-18T17:47:35.042+00:00,APPLICATION_ERROR,<NotFound '404: Not Found'>
+2026-10-18T17:47:35.075+00:00,READING_ACCEPTED,sample=1835 source=MODULE6_SOURCE_REPLAY status=OK raw=21.96 reason=passed source and temperature-range validation

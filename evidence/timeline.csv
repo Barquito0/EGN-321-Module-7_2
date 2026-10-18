@@ -1,0 +1,8 @@
+time_utc,component,event,evidence,interpretation
+2026-10-18T17:47:24.807+00:00,operator,FAILURE_INJECTED,component=operator action=create_pause_flag path=/home/runner/work/EGN-321-Module-7_2/EGN-321-Module-7_2/state/pause.flag,Operator creates source pause flag: controlled root cause
+2026-10-18T17:47:25.011+00:00,replay_worker,SOURCE_PAUSED,component=replay_worker action=PAUSE_FILE_DETECTED cursor=30 pause_file=/home/runner/work/EGN-321-Module-7_2/EGN-321-Module-7_2/state/pause.flag source=/home/runner/work/EGN-321-Module-7_2/EGN-321-Module-7_2/data/module6_sample_sensor_history.csv,First worker warning; cursor stopped advancing
+2026-10-18T17:47:27.814+00:00,watchdog,STALE_INPUT,HEALTHY -> DEGRADED; Replay input stale; last reading is NOT current,Downstream stale-data symptom
+2026-10-18T17:47:33.430+00:00,watchdog,INPUT_FAILED,DEGRADED -> FAILED; No replay input received within failure limit,Downstream FAILED state after persistent outage
+2026-10-18T17:47:34.032+00:00,operator,RECOVERY_ACTION,component=operator action=remove_pause_flag path=/home/runner/work/EGN-321-Module-7_2/EGN-321-Module-7_2/state/pause.flag,Operator removes pause flag
+2026-10-18T17:47:34.224+00:00,replay_worker,SOURCE_RESUMED,component=replay_worker action=PAUSE_FILE_REMOVED cursor=30 elapsed_seconds=9.212 source=/home/runner/work/EGN-321-Module-7_2/EGN-321-Module-7_2/data/module6_sample_sensor_history.csv,Worker resumes; duration and cursor recorded
+2026-10-18T17:47:34.494+00:00,watchdog,HEALTH_RECOVERED,FAILED -> HEALTHY; Accepted replay value is fresh; no active alert,New accepted arrival restores HEALTHY
