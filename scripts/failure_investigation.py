@@ -177,7 +177,7 @@ def main():
         raise RuntimeError('Failure-test DB or pause flag already exists; do not overwrite evidence')
     env = {**os.environ, 'MONITOR_DB':str(DB), 'MONITOR_LOG':str(LOG),
            'PORT':PORT, 'REPLAY_SECONDS':'.28',
-           'STALE_DEGRADED_SECONDS':'1.6', 'STALE_FAILED_SECONDS':'3.8',
+           'STALE_DEGRADED_SECONDS':'2.8', 'STALE_FAILED_SECONDS':'8.5',
            'CLASSROOM_DEMO':'0', 'RESTART_DELAY_SECONDS':'.5',
            'PYTHONUNBUFFERED':'1'}
     supervisor = subprocess.Popen([sys.executable,'-u',str(ROOT/'supervisor.py')],
